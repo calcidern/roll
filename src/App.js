@@ -1,18 +1,28 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import objectAssign from 'object-assign';
+
 import './App.css';
+import {Roll} from "./model/Roll";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.updateInput = this.updateInput.bind(this);
+    this.state = {
+      input: '',
+      roll: null
+    };
+  }
+
+  updateInput(e){
+    this.setState(objectAssign({}, this.state, {input: e.target.value,roll:new Roll(e.target.value)}));
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input type="text" value={this.state.input} onChange={this.updateInput}/>
+        <div>{this.state.roll ? this.state.roll.expression :''}</div>
       </div>
     );
   }
