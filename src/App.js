@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <div className="App">
         <input type="text" value={this.state.input} onChange={this.updateInput}/>
-        <div>{this.state.roll ? this.state.roll.expression :''}</div>
+        <div>{this.state.roll ? this.state.roll.isDiceString(this.state.input).join('|') :''}</div>
       </div>
     );
   }

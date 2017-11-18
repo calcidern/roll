@@ -11,8 +11,13 @@ export class Roll{
   }
 
   parseExpression(exp){
-    const diceR;
+    const words = exp.split(' ');
+    return words;
+  }
 
+  isDiceString(str){
+    const split = str.split(/[dk]/);
+    return split;
   }
 
 
