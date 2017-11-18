@@ -37,13 +37,14 @@ describe('with inline options',()=>{
   it('should extract divide option', () => {
     const dice = new Dice('1d20/10');
 
-    expect(dice.options.divide).toEqual('10');
+    expect(dice.options.divide).toEqual(10);
   });
 
-  it('should not extract divide option', () => {
+  it('should not extract options', () => {
     const dice = new Dice('1d20');
 
     expect(dice.options.divide).toEqual(false);
+    expect(dice.options.explode).toEqual(false);
   });
 
   it('should extract option multiple options', () => {
