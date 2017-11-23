@@ -3,6 +3,7 @@ import objectAssign from 'object-assign';
 
 import './App.css';
 import {Roll} from "./model/Roll";
+import {Dice} from "./model/Dice";
 
 class App extends Component {
   constructor(props) {
@@ -10,19 +11,29 @@ class App extends Component {
     this.updateInput = this.updateInput.bind(this);
     this.state = {
       input: '',
-      roll: null
+      roll: null,
+      dice: null
     };
   }
 
-  updateInput(e){
-    this.setState(objectAssign({}, this.state, {input: e.target.value,roll:new Roll(e.target.value)}));
+  updateInput(e) {
+    const value = e.target.value;
+    const dice = Dice.isDiceNotation(value) && new Dice(value);
+    this.setState(objectAssign({}, this.state,
+      {
+        input: value,
+        roll: new Roll(value),
+        dice: dice
+      }
+    ));
   }
 
   render() {
     return (
       <div className="App">
         <input type="text" value={this.state.input} onChange={this.updateInput}/>
-        <div>{this.state.roll ? this.state.roll.isDiceString(this.state.input).join('|') :''}</div>
+        {/*<div>{this.state.roll ? this.state.roll.isDiceString(this.state.input).join('|') :''}</div>*/}
+        <div>{this.state.dice ? this.state.dice.toString() : ''}</div>
       </div>
     );
   }

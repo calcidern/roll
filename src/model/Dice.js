@@ -16,4 +16,13 @@ export class Dice{
     this.options = new DiceOptions(optionsCompacted);
   }
 
+  toString(){
+    return `${this.number}k${this.type}${this.options.toString()}`;
+  }
+
+  static isDiceNotation(notation){
+    const split = notation.split(/[dk]/);
+    return !!parseInt(split[1],10);
+  }
+
 }

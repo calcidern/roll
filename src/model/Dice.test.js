@@ -19,6 +19,7 @@ it('should parse short dice notation', () => {
 
   expect(dice.number).toBe(1);
 });
+
 describe('with inline options',()=>{
 
   it('should parse when options present', () => {
@@ -52,6 +53,33 @@ describe('with inline options',()=>{
 
     expect(dice.options.explode).toEqual(true);
     expect(dice.options.divide).toEqual(10);
+  });
+});
+
+describe('isDiceNotation',()=>{
+
+  it('should be valid when full notation', () => {
+    expect(Dice.isDiceNotation('1k10')).toBe(true);
+  });
+
+  it('should be valid when no dice number present', () => {
+    expect(Dice.isDiceNotation('k10')).toBe(true);
+  });
+
+  it('should be valid when options present', () => {
+    expect(Dice.isDiceNotation('k10!/10')).toBe(true);
+  });
+
+  it('should be invalid when no dice present', () => {
+    expect(Dice.isDiceNotation('1')).toBe(false);
+  });
+
+  it('should be invalid when no dice type present', () => {
+    expect(Dice.isDiceNotation('1k')).toBe(false);
+  });
+
+  it('should be invalid when type is not a number', () => {
+    expect(Dice.isDiceNotation('1kaaa')).toBe(false);
   });
 
 });
