@@ -18,7 +18,7 @@ class App extends Component {
 
   updateInput(e) {
     const value = e.target.value;
-    const dice = Dice.isDiceNotation(value) && new Dice(value);
+    const dice = Dice.isDiceNotation(value) && Dice.fromNotation(value);
     this.setState(objectAssign({}, this.state,
       {
         input: value,
@@ -33,7 +33,8 @@ class App extends Component {
       <div className="App">
         <input type="text" value={this.state.input} onChange={this.updateInput}/>
         {/*<div>{this.state.roll ? this.state.roll.isDiceString(this.state.input).join('|') :''}</div>*/}
-        <div>{this.state.dice ? this.state.dice.toString() : ''}</div>
+        <div>{this.state.dice && this.state.dice.toString()}</div>
+        <div>{this.state.dice && this.state.dice.roll().toString()}</div>
       </div>
     );
   }
