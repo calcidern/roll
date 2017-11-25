@@ -54,6 +54,42 @@ describe('with inline options',()=>{
     expect(dice.options.explode).toEqual(true);
     expect(dice.options.divide).toEqual(10);
   });
+  describe('dice sign',()=>{
+    it('should extract positive sign as default', () => {
+      const dice = Dice.fromNotation('1d20');
+
+      expect(dice.diceSign > 0).toBe(true);
+    });
+
+    it('should parse dice if positive sign present', () => {
+      const dice = Dice.fromNotation('+1d20');
+
+      expect(dice.number).toBe(1);
+      expect(dice.type).toBe(20);
+    });
+
+    it('should extract positive sign if present', () => {
+      const dice = Dice.fromNotation('+1d20');
+
+      expect(dice.diceSign).toBe(1);
+    });
+
+    it('should parse dice if negative sign present', () => {
+      const dice = Dice.fromNotation('-1d20');
+
+      expect(dice.number).toBe(1);
+      expect(dice.type).toBe(20);
+    });
+
+    it('should extract negative sign if present', () => {
+      const dice = Dice.fromNotation('-1d20');
+
+      expect(dice.diceSign).toBe(-1);
+    });
+  });
+
+
+
 });
 
 describe('isDiceNotation',()=>{

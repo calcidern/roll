@@ -5,12 +5,14 @@ export class Dice {
   number;
   type;
 
+  diceSign = 1;
   options;
 
-  constructor(number, type, options) {
+  constructor(number, type, options, diceSign) {
     this.number = number;
     this.type = type;
     this.options = options;
+    this.diceSign = diceSign || 1;
   }
 
   toString() {
@@ -25,11 +27,13 @@ export class Dice {
   static fromNotation(notation) {
     const split = notation.split(/[dk]/);
     const number = parseInt(split[0], 10) || 1;
+    const diceSign = Math.sign(number);
+    const numberAbs = Math.abs(number);
     const type = parseInt(split[1], 10);
     const optionsCompacted = split[1].replace(type, '');
     const options = new DiceOptions(optionsCompacted);
 
-    return new Dice(number, type, options);
+    return new Dice(numberAbs, type, options, diceSign);
   }
 
   getSingle() {

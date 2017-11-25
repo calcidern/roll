@@ -1,23 +1,25 @@
 /**
  * Created by calcidern on 15.11.2017.
  */
+import {Dice} from "./Dice";
 
 export class Roll{
-  expression;
+  dices;
+  options;
   log;
 
-  constructor(expression){
-    this.expression=expression;
+  constructor(dices, options){
+    this.dices= dices;
+    this.options = options;
   }
 
-  parseExpression(exp){
-    const words = exp.split(' ');
-    return words;
-  }
+  static fromNotation(notation){
+    const words = notation.split(' ');
+    const diceIndexes = words.map(e=>Dice.isDiceNotation(e)).map((e,i)=>e && i ).filter(e=>e!==false);
+    console.log(diceIndexes);
+    const dices = words.filter((e)=>Dice.isDiceNotation(e)).map(e=>Dice.fromNotation(e));
 
-  isDiceString(str){
-    const split = str.split(/[dk]/);
-    return split;
+    return new Roll(dices);
   }
 
 
