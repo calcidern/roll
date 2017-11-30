@@ -32,12 +32,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <input type="text" value={this.state.input} onChange={this.updateInput}/>
-        {/*<div>{this.state.roll ? this.state.roll.isDiceString(this.state.input).join('|') :''}</div>*/}
-        <div>{this.state.result && this.state.result.diceResults.map(e=>e.join(',')).join('||')}</div>
-        <div>{this.state.result && this.state.result.sumEach.join('||')}</div>
-        <div>{this.state.result && this.state.result.sumAll}</div>
-        {/*<div>{this.state.dice && this.state.dice.roll().toString()}</div>*/}
+        <main className="main">
+
+          <input type="text" value={this.state.input} onChange={this.updateInput}/>
+          {/*<div>{this.state.roll ? this.state.roll.isDiceString(this.state.input).join('|') :''}</div>*/}
+          <div>Results: {this.state.result && this.state.result.diceResults.map(e => e.join(',')).join('||')}</div>
+          {this.state.result &&
+          this.state.result.sumEach.length > 1 &&
+          <div>Each: {this.state.result && this.state.result.sumEach.join('||')}</div>}
+          <div>Total: {this.state.result && this.state.result.sumAll}</div>
+          {/*<div>{this.state.dice && this.state.dice.roll().toString()}</div>*/}
+        </main>
       </div>
     );
   }

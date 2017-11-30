@@ -18,3 +18,10 @@ it('should extract option multiple options', () => {
   expect(options.explode).toEqual(true);
   expect(options.divide).toEqual(10);
 });
+
+describe('reloll option', function () {
+  it('should extract reroll option', function () {
+    const options =new DiceOptions('-r');
+    expect(options.reroll).toEqual(1);
+  });
+});
