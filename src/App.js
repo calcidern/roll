@@ -19,11 +19,12 @@ class App extends Component {
   updateInput(e) {
     const value = e.target.value;
     const dice = Dice.isDiceNotation(value) && Dice.fromNotation(value);
+    const roll = Roll.fromNotation(value);
     this.setState(objectAssign({}, this.state,
       {
         input: value,
-        roll: new Roll(value),
-        dice: dice
+        roll: roll,
+        result: roll.getResult()
       }
     ));
   }
@@ -33,8 +34,10 @@ class App extends Component {
       <div className="App">
         <input type="text" value={this.state.input} onChange={this.updateInput}/>
         {/*<div>{this.state.roll ? this.state.roll.isDiceString(this.state.input).join('|') :''}</div>*/}
-        <div>{this.state.dice && this.state.dice.toString()}</div>
-        <div>{this.state.dice && this.state.dice.roll().toString()}</div>
+        <div>{this.state.result && this.state.result.diceResults.map(e=>e.join(',')).join('||')}</div>
+        <div>{this.state.result && this.state.result.sumEach.join('||')}</div>
+        <div>{this.state.result && this.state.result.sumAll}</div>
+        {/*<div>{this.state.dice && this.state.dice.roll().toString()}</div>*/}
       </div>
     );
   }

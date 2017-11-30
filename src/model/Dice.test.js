@@ -1,4 +1,5 @@
 import {Dice} from "./Dice";
+import {DiceOptions} from "./DiceOptions";
 
 it('should parse simple "k" dice notation', () => {
   const dice = Dice.fromNotation('1k20');
@@ -20,7 +21,7 @@ it('should parse short dice notation', () => {
   expect(dice.number).toBe(1);
 });
 
-describe('with inline options',()=>{
+describe('with inline options', () => {
 
   it('should parse when options present', () => {
     const dice = Dice.fromNotation('1d20!');
@@ -54,7 +55,7 @@ describe('with inline options',()=>{
     expect(dice.options.explode).toEqual(true);
     expect(dice.options.divide).toEqual(10);
   });
-  describe('dice sign',()=>{
+  describe('dice sign', () => {
     it('should extract positive sign as default', () => {
       const dice = Dice.fromNotation('1d20');
 
@@ -89,10 +90,9 @@ describe('with inline options',()=>{
   });
 
 
-
 });
 
-describe('isDiceNotation',()=>{
+describe('isDiceNotation', () => {
 
   it('should be valid when full notation', () => {
     expect(Dice.isDiceNotation('1k10')).toBe(true);
@@ -116,6 +116,33 @@ describe('isDiceNotation',()=>{
 
   it('should be invalid when type is not a number', () => {
     expect(Dice.isDiceNotation('1kaaa')).toBe(false);
+  });
+});
+
+describe('dice roll result', () => {
+  it('should return predefined number of results', () => {
+    const dice = new Dice(2, 10);
+    expect(dice.roll().length).toEqual(2);
+  });
+
+  it('should return array for single result', () => {
+    const dice = new Dice(1, 10);
+    expect(dice.roll().length).toEqual(1);
+  });
+
+  it('should not return 0 value', () => {
+    const dice = new Dice(1, 10);
+    dice.random = () => 0;
+    expect(dice.roll()[0]).toEqual(1);
+  });
+
+  describe('explode', () => {
+    it('should explode dice then highest roll', () => {
+      const dice = new Dice(1, 10,new DiceOptions('!'));
+      dice.random = () => 1;
+      expect(dice.roll().length).toEqual(2);
+
+    });
   });
 
 });

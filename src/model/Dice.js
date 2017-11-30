@@ -2,6 +2,8 @@ import {DiceOptions} from "./DiceOptions";
 
 export class Dice {
 
+  random = Math.random;
+
   number;
   type;
 
@@ -41,11 +43,22 @@ export class Dice {
   }
 
   roll() {
-    return (new Array(this.number))
+    let result = (new Array(this.number))
       .fill(0)
-      .map(e => Math.random())
+      .map(e => this.random())
       .map(e => (e * this.type))
       .map(e => Math.ceil(e) || 1);
+    if(this.options) {
+      switch (true) {
+        case this.options.explode:
+          result = result
+            .map(e => e === this.type ? [e, this.getSingle().roll()] : e)
+            .reduce((a,b)=> [...a,...b]);
+          console.log(result);
+      }
+    }
+
+    return result;
   }
 
 
