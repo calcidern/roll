@@ -140,9 +140,33 @@ describe('dice roll result', () => {
     it('should explode dice then highest roll', () => {
       const dice = new Dice(1, 10,new DiceOptions('!'));
       dice.random = () => 1;
-      expect(dice.roll().length).toEqual(2);
+      const result = dice.roll();
+      expect(result.length).toBeGreaterThanOrEqual(2);
+      expect(result[1]).toBeGreaterThan(0);
+
+    });
+
+    it('should not explode then lower value', () => {
+      const dice = new Dice(1, 10,new DiceOptions('!'));
+      dice.random = () => 0;
+      expect(dice.roll().length).toEqual(1);
 
     });
   });
 
 });
+describe('flatten', function () {
+  it('should flatten simple array', function () {
+    const arr= [1];
+    const em = 2;
+    expect(Dice.flatten(arr,em)).toEqual([1,2]);
+  });
+
+  it('should flatten complex array', function () {
+    const arr= [1];
+    const em = [2];
+    expect(Dice.flatten(arr,em)).toEqual([1,2]);
+  });
+
+});
+

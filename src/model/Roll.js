@@ -14,7 +14,6 @@ export class Roll {
   }
 
   static fromNotation(notation) {
-    const words = notation.split(' ').filter(e => e);
 
     function normalizeDiceExpressions(notation) {
       const words = notation.split(' ').filter(e => e);
@@ -31,8 +30,6 @@ export class Roll {
       });
       return diceScope.filter(e => e.length).map(e => e.join(''));
     }
-    console.log(normalizeDiceExpressions(notation));
-
 
     const dices = normalizeDiceExpressions(notation).filter((e) => Dice.isDiceNotation(e)).map(e => Dice.fromNotation(e));
 

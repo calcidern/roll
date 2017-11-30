@@ -43,22 +43,25 @@ export class Dice {
   }
 
   roll() {
+    console.log(this);
     let result = (new Array(this.number))
       .fill(0)
       .map(e => this.random())
       .map(e => (e * this.type))
       .map(e => Math.ceil(e) || 1);
-    if(this.options) {
+    if (this.options) {
       switch (true) {
         case this.options.explode:
           result = result
-            .map(e => e === this.type ? [e, this.getSingle().roll()] : e)
-            .reduce((a,b)=> [...a,...b]);
-          console.log(result);
+            .map(e => (e === this.type && this.type > 1) ? [e, ...this.getSingle().roll()] : e)
+            .reduce((a, b) => Dice.flatten(a, b), []);
       }
     }
-
     return result;
+  }
+
+  static flatten(arr, em) {
+    return arr.concat(em);
   }
 
 
