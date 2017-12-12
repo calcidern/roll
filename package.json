@@ -8,6 +8,7 @@
     "react-scripts": "1.0.17"
   },
   "dependencies": {
+    "material-ui": "^0.20.0",
     "object-assign": "^4.1.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"

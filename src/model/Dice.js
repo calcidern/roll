@@ -22,12 +22,12 @@ export class Dice {
   }
 
   static isDiceNotation(notation) {
-    const split = notation.split(/[dk]/);
+    const split = notation.split(/[dkDK]/);
     return !!parseInt(split[1], 10);
   }
 
   static fromNotation(notation) {
-    const split = notation.split(/[dk]/);
+    const split = notation.split(/[dkDK]/);
     const number = parseInt(split[0], 10) || 1;
     const diceSign = Math.sign(number);
     const numberAbs = Math.abs(number);
@@ -43,7 +43,6 @@ export class Dice {
   }
 
   roll() {
-    console.log(this);
     let result = (new Array(this.number))
       .fill(0)
       .map(e => this.random())
@@ -55,6 +54,7 @@ export class Dice {
           result = result
             .map(e => (e === this.type && this.type > 1) ? [e, ...this.getSingle().roll()] : e)
             .reduce((a, b) => Dice.flatten(a, b), []);
+          break;
       }
     }
     return result;

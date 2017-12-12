@@ -24,7 +24,7 @@ export class DiceOptions {
     return (notation.match(/\/\d+/) || []).map(e => e.split('/')[1]).map(e => parseInt(e, 10))[0] || false;
   }
   matchReroll(notation){
-    console.log(notation.match(/-r[\d+]/));
+    // console.log(notation.match(/-r[\d+]/));
     return notation.match(/-r\d+/)
   }
 

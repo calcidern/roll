@@ -24,7 +24,13 @@
 }
 
 .main {
-  text-align: start;
+  /*text-align: start;*/
+  margin: 1em
+}
+.dice-input-group{
+  display: flex;
+  justify-content: baseline;
+  align-items: baseline;
 }
 
 @keyframes App-logo-spin {
