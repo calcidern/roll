@@ -4,7 +4,7 @@ import objectAssign from 'object-assign';
 import './App.css';
 import {Roll} from "./model/Roll";
 import {Dice} from "./model/Dice";
-import {MuiThemeProvider, RaisedButton} from "material-ui";
+import {Chip, MuiThemeProvider, RaisedButton} from "material-ui";
 import TextField from 'material-ui/TextField';
 import RollResults from './components/RollResults.component';
 
@@ -39,29 +39,42 @@ class App extends Component {
     }
   }
 
-  handleTextFieldKeyDown (event) {
+  handleTextFieldKeyDown(event) {
     switch (event.key) {
       case 'Enter':
         this.updateRoll();
         break;
       case 'Escape':
-        this.setState(objectAssign({},this.state,{input:''}));
+        this.setState(objectAssign({}, this.state, {input: ''}));
         break;
-      default: break
+      default:
+        break
     }
   }
 
   render() {
+    let diceChips;
+    if (this.state.roll) {
+      diceChips = this.state.roll.dices.map((dice, i) => (
+        <Chip key={dice + i}
+              style={{marginRight: '1em'}}>
+          {dice.toString()}
+        </Chip>));
+    }
+
     return (
       <MuiThemeProvider>
         <main className="main">
+          <div style={{display: 'flex', flexWrap: 'wrap'}}>
+            {diceChips}
+          </div>
           <div className="dice-input-group">
             <TextField hintText="Dice expression"
                        value={this.state.input}
                        onChange={this.updateInput}
                        onKeyDown={this.handleTextFieldKeyDown}
-                       style={{marginRight:'1em', width: '100%'}}/>
-            <RaisedButton label="Roll" primary={true} onClick={this.updateRoll} />
+                       style={{marginRight: '1em', width: '100%'}}/>
+            <RaisedButton label="Roll" primary={true} onClick={this.updateRoll}/>
           </div>
           {this.state.result && <RollResults results={this.state.result}/>}
         </main>
