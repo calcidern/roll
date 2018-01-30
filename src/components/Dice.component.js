@@ -5,7 +5,7 @@ export const Dice = ({dice, onReroll}) => {
 
   const styles={
     minWidth: 0,
-    margin: '0 0.2em',
+    margin: '0.2em',
     background: dice.state.rerolled && 'lightgreen'
   };
 
