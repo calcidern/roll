@@ -2,20 +2,22 @@ import React, {Component} from 'react';
 import objectAssign from 'object-assign';
 
 import './App.css';
-import {Roll} from "./model/Roll";
-import {Dice} from "./model/Dice";
-import {Chip, MuiThemeProvider, RaisedButton} from "material-ui";
+import {Chip, Button} from "material-ui";
+import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
 import TextField from 'material-ui/TextField';
-import RollResults from './components/RollResults.component';
+import {Roll} from "./model2/Roll";
+import RollResult from './components/Roll.component'
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.updateInput = this.updateInput.bind(this);
     this.updateRoll = this.updateRoll.bind(this);
+    this.onReroll = this.onReroll.bind(this);
     this.handleTextFieldKeyDown = this.handleTextFieldKeyDown.bind(this);
     this.state = {
       input: '',
+      history: [],
       roll: null,
       dice: null
     };
@@ -23,8 +25,7 @@ class App extends Component {
 
   updateInput(e) {
     const value = e.target.value;
-    const dice = Dice.isDiceNotation(value) && Dice.fromNotation(value);
-    const roll = Roll.fromNotation(value);
+    const roll = Roll.isRollNotation(value) && Roll.fromNotation(value);
     this.setState(objectAssign({}, this.state,
       {
         input: value,
@@ -35,8 +36,18 @@ class App extends Component {
 
   updateRoll() {
     if (this.state.roll) {
-      this.setState(objectAssign({}, this.state, {result: this.state.roll.getResult()}));
+      const rolled = this.state.roll.clone().roll();
+      this.setState(objectAssign({}, this.state, {
+        history: [rolled, ...this.state.history]
+      }));
     }
+  }
+
+  onReroll(diceNr,rollNr){
+    const rolls = this.state.history.map(r=>r.clone());
+    rolls[rollNr].dices[diceNr].reroll();
+    console.log(rolls);
+    this.setState(Object.assign({},this.state,{history:rolls}))
   }
 
   handleTextFieldKeyDown(event) {
@@ -53,32 +64,40 @@ class App extends Component {
   }
 
   render() {
-    let diceChips;
+    let diceChip;
+    let rollResult;
     if (this.state.roll) {
-      diceChips = this.state.roll.dices.map((dice, i) => (
-        <Chip key={dice + i}
-              style={{marginRight: '1em'}}>
-          {dice.toString()}
-        </Chip>));
+      diceChip = (
+        <Chip style={{marginRight: '1em'}}
+              label={this.state.roll.notation}/>);
+      rollResult = <RollResult roll={this.state.roll}/>
     }
 
     return (
-      <MuiThemeProvider>
-        <main className="main">
-          <div style={{display: 'flex', flexWrap: 'wrap'}}>
-            {diceChips}
-          </div>
-          <div className="dice-input-group">
-            <TextField hintText="Dice expression"
-                       value={this.state.input}
-                       onChange={this.updateInput}
-                       onKeyDown={this.handleTextFieldKeyDown}
-                       style={{marginRight: '1em', width: '100%'}}/>
-            <RaisedButton label="Roll" primary={true} onClick={this.updateRoll}/>
-          </div>
-          {this.state.result && <RollResults results={this.state.result}/>}
-        </main>
-      </MuiThemeProvider>
+      <main className="main">
+
+        <div className="dice-input-group">
+          <TextField
+            value={this.state.input}
+            onChange={this.updateInput}
+            onKeyDown={this.handleTextFieldKeyDown}
+            style={{marginRight: '1em', width: '100%'}}/>
+          <Button raised color="primary" onClick={this.updateRoll}>
+            Roll
+          </Button>
+        </div>
+        <div style={{display: 'flex', flexWrap: 'wrap'}}>
+          {diceChip}
+        </div>
+        <List>
+          {this.state.history.map((roll, i) => (
+            <ListItem button key={i}>
+              <RollResult roll={roll} onReroll={(diceNr)=>this.onReroll(diceNr,i)}/>
+            </ListItem>
+          ))}
+        </List>
+        {rollResult}
+      </main>
     );
   }
 }
