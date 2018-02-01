@@ -1,30 +1,31 @@
 import {Dice} from "./Dice";
+import parser, {isValidRoll} from "./rollNotationParser";
 
 export class Roll {
   dices;
   rolled;
+  mark;
 
-  constructor(dices, rolled=false) {
+  constructor(dices, rolled=false, mark='k') {
     this.dices = dices;
     this.rolled = rolled;
+    this.mark=mark;
   }
 
   static fromNotation(notation) {
-
-    const split = notation.split(/[dkDK]/);
-    const number = parseInt(split[0], 10) || 1;
+    const parsed = parser(notation);
+    const number = parseInt(parsed.count) || 1;
     const diceSign = Math.sign(number);
     const numberAbs = Math.abs(number);
-    const type = parseInt(split[1], 10);
+    const type = parseInt(parsed.type);
 
     const dices = (new Array(numberAbs)).fill(new Dice(type, diceSign));
 
-    return new Roll(dices);
+    return new Roll(dices,false,parsed.mark);
   }
 
   static isRollNotation(notation) {
-    const split = notation.split(/[dkDK]/);
-    return !!parseInt(split[1], 10);
+    return isValidRoll(notation);
   }
 
   roll() {
@@ -33,11 +34,11 @@ export class Roll {
     return this;
   }
   clone(){
-    return new Roll(this.dices.map(d=>d.clone()),this.rolled);
+    return new Roll(this.dices.map(d=>d.clone()),this.rolled,this.mark);
   }
 
   get notation(){
-    return `${this.dices.length}k${this.dices[0].type}`;
+    return `${this.dices.length}${this.mark}${this.dices[0].type}`;
   }
 
   get results (){

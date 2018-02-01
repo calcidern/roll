@@ -10,7 +10,7 @@ export const Dice = ({dice, onReroll}) => {
   };
 
   return (
-    <div>
+    <div style={{display:'inline-block'}}>
       <Button raised onClick={()=>onReroll()}
         // style={{minWidth:'36px', margin:'0 0.2em'}}
         // overlaystyle={{padding:'0 0.5em'}}
