@@ -1,8 +1,8 @@
 import parser, {isValidRoll} from "./rollNotationParser";
 
-describe('Roll notation Parser', () => {
+describe('Roll currentRoll Parser', () => {
   describe('validity check', () => {
-    it('should be valid when full notation', () => {
+    it('should be valid when full currentRoll', () => {
       expect(isValidRoll('1k10')).toBe(true);
     });
 
@@ -23,7 +23,7 @@ describe('Roll notation Parser', () => {
     });
   });
   describe('parsing', () => {
-    it('should parse full notation', () => {
+    it('should parse full currentRoll', () => {
       const parsed = parser('1k10');
       expect(parsed.count).toBe('1');
       expect(parsed.mark).toBe('k');

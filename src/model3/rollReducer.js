@@ -1,18 +1,47 @@
-import {INPUT_UPDATE} from './rollActions'
+import {EXECUTE_REROLL, EXECUTE_ROLL, INPUT_UPDATE} from './rollActions'
+import parse, {isValidRoll} from "./rollNotationParser";
+import rollDice, {arrayReplace, reroll} from "./rollDice";
 
 const initialState = {
-    input: ''
+  input: '',
+  validRoll: false,
+  currentRoll: {},
+  results: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case INPUT_UPDATE:
-      console.log(action);
+      const {input} = action;
+      const validRoll = isValidRoll(input);
+      const currentRoll = validRoll ? parse(input) : {};
+      const newState = {
+        ...state,
+        input,
+        validRoll,
+        currentRoll
+      };
+      return newState;
+    case EXECUTE_ROLL:
+      if (state.validRoll) {
+        const result = rollDice(action.roll);
+        console.log(result);
+        return {
+          ...state,
+          results: [result, ...state.results]
+        }
+      } else {
+        return state;
+      }
+    case EXECUTE_REROLL:
+      const {rollNumber, index} = action;
+      const roll = state.results[rollNumber];
+      const results = arrayReplace(state.results, rollNumber, reroll(roll, index));
+
       return {
         ...state,
-        input: action.input
-      };
-
+        results
+      }
     default:
       return state
   }

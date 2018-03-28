@@ -1,21 +1,21 @@
 import {Dice} from "./Dice";
 import {DiceOptions} from "./DiceOptions";
 
-it('should parse simple "k" dice notation', () => {
+it('should parse simple "k" dice currentRoll', () => {
   const dice = Dice.fromNotation('1k20');
 
   expect(dice.number).toBe(1);
   expect(dice.type).toBe(20);
 });
 
-it('should parse simple "d" dice notation', () => {
+it('should parse simple "d" dice currentRoll', () => {
   const dice = Dice.fromNotation('1d20');
 
   expect(dice.number).toBe(1);
   expect(dice.type).toBe(20);
 });
 
-it('should parse short dice notation', () => {
+it('should parse short dice currentRoll', () => {
   const dice = Dice.fromNotation('d20');
 
   expect(dice.number).toBe(1);
@@ -94,7 +94,7 @@ describe('with inline options', () => {
 
 describe('isDiceNotation', () => {
 
-  it('should be valid when full notation', () => {
+  it('should be valid when full currentRoll', () => {
     expect(Dice.isDiceNotation('1k10')).toBe(true);
   });
 

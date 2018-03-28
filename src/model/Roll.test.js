@@ -3,7 +3,7 @@
  */
 import {Roll} from "./Roll";
 
-it('should extract dice when simple notation', () => {
+it('should extract dice when simple currentRoll', () => {
   const roll = Roll.fromNotation('1k20');
 
   expect(roll.dices[0].number).toBe(1);

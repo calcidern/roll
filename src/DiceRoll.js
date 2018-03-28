@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import objectAssign from 'object-assign';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
 
 import {Chip, Button} from "material-ui";
 import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
@@ -9,7 +9,7 @@ import TextField from 'material-ui/TextField';
 import {Roll} from "./model2/Roll";
 import RollResult from './components/Roll.component';
 
-import {updateInput} from './model3/rollActions';
+import {updateInput,executeRoll} from './model3/rollActions';
 
 import './App.css';
 
@@ -41,6 +41,7 @@ class DiceRoll extends Component {
   }
 
   updateRoll() {
+    this.props.executeRoll(this.props.currentRoll);
     if (this.state.roll) {
       const rolled = this.state.roll.clone().roll();
       this.setState(objectAssign({}, this.state, {
@@ -49,11 +50,11 @@ class DiceRoll extends Component {
     }
   }
 
-  onReroll(diceNr,rollNr){
-    const rolls = this.state.history.map(r=>r.clone());
+  onReroll(diceNr, rollNr) {
+    const rolls = this.state.history.map(r => r.clone());
     rolls[rollNr].dices[diceNr].reroll();
     console.log(rolls);
-    this.setState(Object.assign({},this.state,{history:rolls}))
+    this.setState(Object.assign({}, this.state, {history: rolls}))
   }
 
   handleTextFieldKeyDown(event) {
@@ -93,14 +94,23 @@ class DiceRoll extends Component {
           </Button>
         </div>
 
-        {this.props.input}
+        <div>
+          {this.props.input}
+        </div>
+        <div>
+          {this.props.validRoll}
+        </div>
+        <div>
+          {this.props.currentRoll.phrase}
+        </div>
+
         <div style={{display: 'flex', flexWrap: 'wrap'}}>
           {diceChip}
         </div>
         <List>
           {this.state.history.map((roll, i) => (
             <ListItem button key={i}>
-              <RollResult roll={roll} onReroll={(diceNr)=>this.onReroll(diceNr,i)}/>
+              <RollResult roll={roll} onReroll={(diceNr) => this.onReroll(diceNr, i)}/>
             </ListItem>
           ))}
         </List>
@@ -111,11 +121,14 @@ class DiceRoll extends Component {
 }
 
 const mapStateToProps = state => ({
-  input: state.roll.input
+  input: state.roll.input,
+  validRoll: state.roll.validRoll,
+  currentRoll: state.roll.currentRoll,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  updateInput
+  updateInput,
+  executeRoll
 }, dispatch);
 
 export default connect(
