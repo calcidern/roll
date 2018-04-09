@@ -4,15 +4,12 @@ import {Chip, Button} from "material-ui";
 import {Dice} from "./Dice.component";
 
 export default ({roll, onReroll}) => {
-
-  return roll.rolled ? (
+  return (
     <div>
-      {roll.notation}: {roll.sum}
+      {roll.phrase}: {roll.sum}
       <div>
         {roll.dices.map((d, i) => <Dice key={i} dice={d} onReroll={() => onReroll(i)}/>)}
       </div>
     </div>
-  ) : (
-    ''
-  )
+  );
 }

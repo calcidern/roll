@@ -9,7 +9,7 @@ import TextField from 'material-ui/TextField';
 import {Roll} from "./model2/Roll";
 import RollResult from './components/Roll.component';
 
-import {updateInput,executeRoll} from './model3/rollActions';
+import {updateInput, executeRoll, executeReroll} from './model3/rollActions';
 
 import './App.css';
 
@@ -54,7 +54,8 @@ class DiceRoll extends Component {
     const rolls = this.state.history.map(r => r.clone());
     rolls[rollNr].dices[diceNr].reroll();
     console.log(rolls);
-    this.setState(Object.assign({}, this.state, {history: rolls}))
+    this.setState(Object.assign({}, this.state, {history: rolls}));
+    this.props.executeReroll(rollNr, diceNr);
   }
 
   handleTextFieldKeyDown(event) {
@@ -71,50 +72,39 @@ class DiceRoll extends Component {
   }
 
   render() {
-    let diceChip;
-    let rollResult;
-    if (this.state.roll) {
-      diceChip = (
-        <Chip style={{marginRight: '1em'}}
-              label={this.state.roll.notation}/>);
-      rollResult = <RollResult roll={this.state.roll}/>
-    }
+    const {input, validRoll, currentRoll, results} = this.props;
+    const diceChip = validRoll && (
+      <Chip style={{marginRight: '1em'}}
+            label={currentRoll.phrase}/>
+    );
 
     return (
       <div className="main">
 
         <div className="dice-input-group">
           <TextField
-            value={this.state.input}
+            value={input}
             onChange={this.updateInput}
             onKeyDown={this.handleTextFieldKeyDown}
             style={{marginRight: '1em', width: '100%'}}/>
+
           <Button raised color="primary" onClick={this.updateRoll}>
             Roll
           </Button>
         </div>
 
-        <div>
-          {this.props.input}
-        </div>
-        <div>
-          {this.props.validRoll}
-        </div>
-        <div>
-          {this.props.currentRoll.phrase}
-        </div>
 
         <div style={{display: 'flex', flexWrap: 'wrap'}}>
           {diceChip}
         </div>
+
         <List>
-          {this.state.history.map((roll, i) => (
-            <ListItem button key={i}>
+          {results.map((roll, i) => (
+            <ListItem key={i}>
               <RollResult roll={roll} onReroll={(diceNr) => this.onReroll(diceNr, i)}/>
             </ListItem>
           ))}
         </List>
-        {rollResult}
       </div>
     );
   }
@@ -124,11 +114,13 @@ const mapStateToProps = state => ({
   input: state.roll.input,
   validRoll: state.roll.validRoll,
   currentRoll: state.roll.currentRoll,
+  results: state.roll.results,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   updateInput,
-  executeRoll
+  executeRoll,
+  executeReroll
 }, dispatch);
 
 export default connect(

@@ -5,7 +5,7 @@ export default (notation) => {
       phrase,
       count: parseInt(count),
       mark,
-      type: parseInt(type),
+      type: type === '%' ? 100 : parseInt(type),
       modifier: modifier && parseInt(modifier.replace(/ /g, ''))
     };
   } else {

@@ -15,17 +15,16 @@ export default (state = initialState, action) => {
       const {input} = action;
       const validRoll = isValidRoll(input);
       const currentRoll = validRoll ? parse(input) : {};
-      const newState = {
+      return {
         ...state,
         input,
         validRoll,
         currentRoll
       };
-      return newState;
+
     case EXECUTE_ROLL:
       if (state.validRoll) {
         const result = rollDice(action.roll);
-        console.log(result);
         return {
           ...state,
           results: [result, ...state.results]
@@ -41,7 +40,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         results
-      }
+      };
     default:
       return state
   }

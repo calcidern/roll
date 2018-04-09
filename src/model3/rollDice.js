@@ -9,15 +9,14 @@ export default (roll) => {
     .map(value => ({value}));
 
   const sum = dices.reduce((sum, x) => sum + x.value, modifier || 0);
-  console.log(roll);
-  console.log(dices);
   return {...roll, dices, sum};
 }
 
 
 export function reroll(roll, index) {
   const {dices, type, modifier} = roll;
-  const newDices = arrayReplace(dices, index, {value: randomRoll(type), rerolled: true});
+  const oldDice = dices[index];
+  const newDices = arrayReplace(dices, index, {...oldDice, value: randomRoll(type), rerolled: true});
 
   const sum = newDices.reduce((sum, x) => sum + x.value, modifier || 0);
 
