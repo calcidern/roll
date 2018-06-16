@@ -6,7 +6,7 @@ export const Dice = ({dice, onReroll}) => {
   const styles={
     minWidth: 0,
     margin: '0.2em',
-    background: dice.state.rerolled && 'lightgreen'
+    background: dice.rerolled && 'lightgreen'
   };
 
   return (
@@ -15,7 +15,7 @@ export const Dice = ({dice, onReroll}) => {
         // style={{minWidth:'36px', margin:'0 0.2em'}}
         // overlaystyle={{padding:'0 0.5em'}}
               style={styles}>
-        {dice.result}
+        {dice.value}
       </Button>
     </div>
   )
