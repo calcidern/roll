@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 import {Chip, Button} from "material-ui";
 import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
 import TextField from 'material-ui/TextField';
-import {Roll} from "./model2/Roll";
 import RollResult from './components/Roll.component';
 
 import {updateInput, executeRoll, executeReroll} from './model3/rollActions';
@@ -30,14 +29,7 @@ class DiceRoll extends Component {
 
   updateInput(e) {
     const value = e.target.value;
-    const roll = Roll.isRollNotation(value) && Roll.fromNotation(value);
     this.props.updateInput(value);
-    this.setState(objectAssign({}, this.state,
-      {
-        input: value,
-        roll: roll
-      }
-    ));
   }
 
   updateRoll() {
