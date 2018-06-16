@@ -4,11 +4,11 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
 import {Chip, Button} from "material-ui";
-import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
+import List, {ListItem} from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import RollResult from './components/Roll.component';
 
-import {updateInput, executeRoll, executeReroll} from './model3/rollActions';
+import {updateInput, executeRoll, executeReroll} from './model/rollActions';
 
 import './App.css';
 
@@ -28,7 +28,7 @@ class DiceRoll extends Component {
   }
 
   updateInput(e) {
-    const value = e.target.value;
+    const {value} = e.target;
     this.props.updateInput(value);
   }
 
