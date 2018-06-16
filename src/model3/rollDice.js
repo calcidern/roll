@@ -1,5 +1,4 @@
-import {Dice} from "../model2/Dice";
-import randomRoll from "../model2/randomRoll";
+import randomRoll from "./randomRoll";
 
 export default (roll) => {
   const {count, type, modifier} = roll;

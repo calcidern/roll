@@ -3,7 +3,7 @@ export default (notation) => {
     const [phrase, count, mark, type, modifier] = notation.match(exp);
     return {
       phrase,
-      count: parseInt(count),
+      count: parseInt(count) || 1,
       mark,
       type: type === '%' ? 100 : parseInt(type),
       modifier: modifier && parseInt(modifier.replace(/ /g, ''))

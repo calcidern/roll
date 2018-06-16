@@ -1,6 +1,4 @@
 import React from 'react';
-import {List, ListItem} from 'material-ui/List';
-import {Chip, Button} from "material-ui";
 import {Dice} from "./Dice.component";
 
 export default ({roll, onReroll}) => {
