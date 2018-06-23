@@ -1,21 +1,22 @@
 import React from 'react';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import {executeReroll} from '../model/rollActions';
+import Divider from '@material-ui/core/Divider';
+import {executeReroll, executeRerollAll} from '../model/rollActions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Roll from './Roll.component';
 
-export function RollResults({results, onReroll}){
+export function RollList({results, onReroll, rerollAll}) {
 
   return (
     <List>
       {results.map((roll, index) => (
-        <ListItem key={index}>
-          <Roll roll={roll} onReroll={(diceNr) => onReroll(index, diceNr)}/>
-        </ListItem>
-
-
+        <React.Fragment key={index}>
+          {!!index && <Divider/>}
+          <Roll roll={roll}
+                onReroll={(diceNr) => onReroll(index, diceNr)}
+                rerollAll={() => rerollAll(index)}/>
+        </React.Fragment>
       ))}
     </List>
   );
@@ -26,10 +27,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  onReroll: executeReroll
+  onReroll: executeReroll,
+  rerollAll: executeRerollAll
 }, dispatch);
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RollResults);
+)(RollList);

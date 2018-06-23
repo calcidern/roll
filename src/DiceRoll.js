@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import {executeRoll, updateInput} from './model/rollActions';
 
 import './App.css';
-import RollResults from './components/RollResults.component';
+import RollList from './components/RollResults.component';
 
 class DiceRoll extends Component {
 
@@ -39,8 +39,7 @@ class DiceRoll extends Component {
   render() {
     const {input, validRoll, currentRoll} = this.props;
     const diceChip = validRoll && (
-      <Chip style={{marginRight: '1em'}}
-        label={currentRoll.phrase}/>
+      <Chip label={currentRoll.phrase}/>
     );
 
     return (
@@ -63,7 +62,7 @@ class DiceRoll extends Component {
           {diceChip}
         </div>
 
-        <RollResults/>
+        <RollList/>
       </div>
     );
   }

@@ -2,6 +2,7 @@
 export const INPUT_UPDATE = 'INPUT_UPDATE';
 export const EXECUTE_ROLL = 'EXECUTE_ROLL';
 export const EXECUTE_REROLL = 'EXECUTE_REROLL';
+export const EXECUTE_REROLL_ALL = 'EXECUTE_REROLL_ALL';
 
 export const updateInput = input => {
   return dispatch => {
@@ -22,7 +23,9 @@ export const executeRoll = roll => {
     });
 
   };
-};export const executeReroll = (rollNumber, index) => {
+};
+
+export const executeReroll = (rollNumber, index) => {
   return dispatch => {
     dispatch({
       type: EXECUTE_REROLL,
@@ -30,5 +33,13 @@ export const executeRoll = roll => {
       index
     });
 
+  };
+};
+export const executeRerollAll = (rollNumber) => {
+  return dispatch => {
+    dispatch({
+      type: EXECUTE_REROLL_ALL,
+      rollNumber
+    });
   };
 };

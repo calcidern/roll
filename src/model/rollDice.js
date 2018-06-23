@@ -21,6 +21,22 @@ export function reroll(roll, index) {
 
   return {
     ...roll,
+    rerolled: true,
+    dices: newDices,
+    sum
+  };
+}
+
+export function rerollAll(roll) {
+  const {dices, type, modifier} = roll;
+  const newDices = dices.map(dice => ({...dice, value: randomRoll(type), rerolled: true}));
+
+  const sum = newDices.reduce((sum, x) => sum + x.value, modifier || 0);
+  console.log(newDices.map(({value})=>value));
+  console.log(sum);
+  return {
+    ...roll,
+    rerolled: true,
     dices: newDices,
     sum
   };

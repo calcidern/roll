@@ -1,6 +1,6 @@
-import {EXECUTE_REROLL, EXECUTE_ROLL, INPUT_UPDATE} from './rollActions';
+import {EXECUTE_REROLL, EXECUTE_ROLL, EXECUTE_REROLL_ALL, INPUT_UPDATE} from './rollActions';
 import parse, {isValidRoll} from './rollNotationParser';
-import rollDice, {arrayReplace, reroll} from './rollDice';
+import rollDice, {arrayReplace, reroll, rerollAll} from './rollDice';
 
 const initialState = {
   input: '',
@@ -40,6 +40,15 @@ export default (state = initialState, action) => {
     return {
       ...state,
       results
+    };
+  case EXECUTE_REROLL_ALL:
+    const roll_all = state.results[action.rollNumber];
+    const results_all = arrayReplace(state.results, action.rollNumber, rerollAll(roll_all));
+
+    console.log(results_all[action.rollNumber].dices.map(({value})=>value));
+    return {
+      ...state,
+      results: results_all
     };
   default:
     return state;

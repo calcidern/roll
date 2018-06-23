@@ -1,13 +1,22 @@
 import React from 'react';
-import {Dice} from './Dice.component';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
-export default ({roll, onReroll}) => {
+import {Dice} from './Dice.component';
+import {BigDice} from './BigDice.component';
+
+export default ({roll, onReroll,rerollAll}) => {
   return (
-    <div>
-      {roll.phrase}: {roll.sum}
+    <ListItem>
+      <ListItemIcon>
+        <BigDice sum={roll.sum} rerolled={roll.rerolled} onReroll={rerollAll} />
+      </ListItemIcon>
       <div>
-        {roll.dices.map((d, i) => <Dice key={i} dice={d} onReroll={() => onReroll(i)}/>)}
+        {roll.phrase}
+        <div>
+          {roll.dices.map((d, i) => <Dice key={i} dice={d} onReroll={() => onReroll(i)}/>)}
+        </div>
       </div>
-    </div>
+    </ListItem>
   );
 };
