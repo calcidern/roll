@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from "material-ui";
+import Button from '@material-ui/core/Button';
 
 export const Dice = ({dice, onReroll}) => {
 
@@ -11,7 +11,7 @@ export const Dice = ({dice, onReroll}) => {
 
   return (
     <div style={{display:'inline-block'}}>
-      <Button raised onClick={()=>onReroll()}
+      <Button variant="contained" onClick={()=>onReroll()}
         // style={{minWidth:'36px', margin:'0 0.2em'}}
         // overlaystyle={{padding:'0 0.5em'}}
               style={styles}>

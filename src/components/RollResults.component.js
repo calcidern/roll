@@ -1,6 +1,8 @@
 import React from 'react';
-import {List, ListItem} from 'material-ui/List';
-import {Chip, Button} from "material-ui";
+import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 export default ({results}) => {
   const resultStr = `Results: ${results.diceResults.map(e => e.join(',')).join('||')}`;
