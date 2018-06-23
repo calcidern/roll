@@ -1,4 +1,4 @@
-import randomRoll from "./randomRoll";
+import randomRoll from './randomRoll';
 
 export default (roll) => {
   const {count, type, modifier} = roll;
@@ -9,7 +9,7 @@ export default (roll) => {
 
   const sum = dices.reduce((sum, x) => sum + x.value, modifier || 0);
   return {...roll, dices, sum};
-}
+};
 
 
 export function reroll(roll, index) {
@@ -23,7 +23,7 @@ export function reroll(roll, index) {
     ...roll,
     dices: newDices,
     sum
-  }
+  };
 }
 
 export function arrayReplace(arr, index, value) {

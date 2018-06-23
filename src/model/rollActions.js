@@ -11,7 +11,7 @@ export const updateInput = input => {
     });
 
 
-  }
+  };
 };
 
 export const executeRoll = roll => {
@@ -21,7 +21,7 @@ export const executeRoll = roll => {
       roll
     });
 
-  }
+  };
 };export const executeReroll = (rollNumber, index) => {
   return dispatch => {
     dispatch({
@@ -30,5 +30,5 @@ export const executeRoll = roll => {
       index
     });
 
-  }
+  };
 };

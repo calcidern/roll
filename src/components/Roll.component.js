@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dice} from "./Dice.component";
+import {Dice} from './Dice.component';
 
 export default ({roll, onReroll}) => {
   return (
@@ -10,4 +10,4 @@ export default ({roll, onReroll}) => {
       </div>
     </div>
   );
-}
+};

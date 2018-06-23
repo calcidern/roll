@@ -12,11 +12,9 @@ export const Dice = ({dice, onReroll}) => {
   return (
     <div style={{display:'inline-block'}}>
       <Button variant="contained" onClick={()=>onReroll()}
-        // style={{minWidth:'36px', margin:'0 0.2em'}}
-        // overlaystyle={{padding:'0 0.5em'}}
-              style={styles}>
+        style={styles}>
         {dice.value}
       </Button>
     </div>
-  )
+  );
 };

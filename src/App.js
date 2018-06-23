@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { Route } from 'react-router-dom'
+import { Route } from 'react-router-dom';
 
-import DiceRoll from "./DiceRoll";
+import DiceRoll from './DiceRoll';
 
 class App extends Component {
 

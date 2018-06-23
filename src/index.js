@@ -14,5 +14,5 @@ ReactDOM.render(<Provider store={store}>
     </div>
   </ConnectedRouter>
 </Provider>,
-  document.getElementById('root'));
+document.getElementById('root'));
 registerServiceWorker();

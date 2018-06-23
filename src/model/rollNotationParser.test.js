@@ -1,4 +1,4 @@
-import parser, {isValidRoll} from "./rollNotationParser";
+import parser, {isValidRoll} from './rollNotationParser';
 
 describe('Roll currentRoll Parser', () => {
 

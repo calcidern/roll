@@ -11,7 +11,7 @@ export default (notation) => {
   } else {
     return null;
   }
-}
+};
 export const isValidRoll = (notation) => {
   return !!notation.match(exp);
 };

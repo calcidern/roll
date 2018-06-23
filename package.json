@@ -4,6 +4,10 @@
   "homepage": "https://calcidern.github.io/roll",
   "private": true,
   "devDependencies": {
+    "babel-eslint": "^8.2.5",
+    "eslint": "^5.0.0",
+    "eslint-plugin-react": "^7.9.1",
+    "eslint-plugin-jest": "^21.17.0",
     "gh-pages": "^1.2.0",
     "react-scripts": "^1.1.4"
   },
