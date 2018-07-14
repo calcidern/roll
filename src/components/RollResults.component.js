@@ -1,7 +1,7 @@
 import React from 'react';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import {executeReroll, executeRerollAll} from '../model/rollActions';
+import {executeReroll, executeRerollAll} from '../model/actions/rollActions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Roll from './Roll.component';
