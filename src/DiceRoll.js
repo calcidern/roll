@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 
-import {executeRoll, updateInput} from './model/rollActions';
+import {executeRoll, updateInput} from './model/actions/rollActions';
 
 import './App.css';
 import RollList from './components/RollResults.component';
