@@ -54,7 +54,7 @@ export default (state = initialState, action) => {
       const {direction} = action;
       const sortRoll = state.results[action.rollNumber];
 
-      const sortResults = arrayReplace(state.results, rollNumber, {...sortRoll, sort:direction});
+      const sortResults = arrayReplace(state.results, action.rollNumber, {...sortRoll, sortDirection:direction});
 
       return {
         ...state,

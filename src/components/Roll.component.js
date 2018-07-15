@@ -1,12 +1,17 @@
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 import {Dice} from './Dice.component';
+import SortButton from './SortButton.component';
 import {BigDice} from './BigDice.component';
 import {ASCENDING, DESCENDING} from "../model/actions/sortActions";
 
-export default ({roll, onReroll, rerollAll}) => {
+export default ({roll, onReroll, rerollAll, onSort}) => {
+
+  const {dices, sortDirection} = roll;
+  const sortedDices = sortDices([...dices], sortDirection);
 
   return (
     <ListItem>
@@ -16,20 +21,23 @@ export default ({roll, onReroll, rerollAll}) => {
       <div>
         {roll.phrase}
         <div>
-          {roll.dices.map((d, i) => <Dice key={i} dice={d} onReroll={() => onReroll(i)}/>)}
+          {sortedDices.map((d, i) => <Dice key={i} dice={d} onReroll={() => onReroll(i)}/>)}
         </div>
       </div>
+      <ListItemSecondaryAction>
+        <SortButton direction={sortDirection} onSort={onSort}/>
+      </ListItemSecondaryAction>
     </ListItem>
   );
 };
 
-function sortDices(roll, direction) {
-  switch (direction) {
+function sortDices(dices, sortDirection) {
+  switch (sortDirection) {
     case ASCENDING:
-      return roll.dices.sort((a, b) => a.value - b.value);
+      return dices.sort((a, b) => a.value - b.value);
     case DESCENDING:
-      return roll.dices.sort((a, b) => b.value - a.value);
+      return dices.sort((a, b) => b.value - a.value);
     default:
-      return roll.dices;
+      return dices;
   }
 }
