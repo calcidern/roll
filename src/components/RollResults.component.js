@@ -15,9 +15,9 @@ export function RollList({results, onReroll, rerollAll, sortDices}) {
         <React.Fragment key={index}>
           {!!index && <Divider/>}
           <Roll roll={roll}
-                onReroll={(diceNr) => onReroll(index, diceNr)}
-                onSort={(direction) => sortDices(index, direction)}
-                rerollAll={() => rerollAll(index)}/>
+            onReroll={(diceNr) => onReroll(index, diceNr)}
+            onSort={(direction) => sortDices(index, direction)}
+            rerollAll={() => rerollAll(index)}/>
         </React.Fragment>
       ))}
     </List>

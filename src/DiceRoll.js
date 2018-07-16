@@ -25,14 +25,14 @@ class DiceRoll extends Component {
 
   handleTextFieldKeyDown = (event) => {
     switch (event.key) {
-    case 'Enter':
-      this.executeRoll();
-      break;
-    case 'Escape':
-      this.props.updateInput('');
-      break;
-    default:
-      break;
+      case 'Enter':
+        this.executeRoll();
+        break;
+      case 'Escape':
+        this.props.updateInput('');
+        break;
+      default:
+        break;
     }
   };
 

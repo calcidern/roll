@@ -8,7 +8,7 @@ import Ascending from '@material-ui/icons/TrendingUp';
 import Shuffle from '@material-ui/icons/Shuffle';
 import IconButton from '@material-ui/core/IconButton';
 
-import {ASCENDING, DESCENDING, NONE} from "../model/actions/sortActions";
+import {ASCENDING, DESCENDING, NONE} from '../model/actions/sortActions';
 
 
 export default ({direction, onSort}) => {
@@ -31,6 +31,6 @@ export default ({direction, onSort}) => {
         <IconButton onClick={() => onSort(DESCENDING)}>
           <Descending/>
         </IconButton>
-    );
+      );
   }
-}
+};

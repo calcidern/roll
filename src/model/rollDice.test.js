@@ -1,6 +1,6 @@
 import random from './randomRoll';
 import roll, {reroll} from './rollDice';
-import parse from './rollNotationParser';
+import parse from './notationParser';
 
 jest.mock('./randomRoll', () => jest.fn((type) => type));
 

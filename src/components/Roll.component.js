@@ -6,7 +6,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import {Dice} from './Dice.component';
 import SortButton from './SortButton.component';
 import {BigDice} from './BigDice.component';
-import {ASCENDING, DESCENDING} from "../model/actions/sortActions";
+import {ASCENDING, DESCENDING} from '../model/actions/sortActions';
 
 export default ({roll, onReroll, rerollAll, onSort}) => {
 

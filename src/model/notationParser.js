@@ -1,7 +1,6 @@
 export default (notation) => {
   if (isValidRoll(notation)) {
     const matched = notation.match(exp);
-    console.log(matched.groups);
     const [phrase] = matched;
     const {count, mark, type, modifier, min, max} = matched.groups;
 
@@ -26,6 +25,6 @@ const countExp = '(?<count>[1-9]+[0-9]*)?';
 const markExp = '(?<mark>[kKDd])';
 const typeExp = '(?<type>[1-9]+[0-9]*|%)';
 const modifierExp = '(?<modifier>[ ]*[\\+\\-][ ]*\\d*)?';
-const testExp = '([ ]*(?<min>\\d*)?\\|(?<max>\\d)?)?';
+const testExp = '([ ]*(?<min>\\d*)?\\|(?<max>\\d*)?)?';
 
 const exp = new RegExp(countExp + markExp + typeExp + modifierExp + testExp);

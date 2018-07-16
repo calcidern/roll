@@ -1,7 +1,7 @@
-import {EXECUTE_REROLL, EXECUTE_ROLL, EXECUTE_REROLL_ALL, INPUT_UPDATE} from './actions/rollActions';
-import {SORT_DICES, ASCENDING, DESCENDING} from './actions/sortActions';
-import parse, {isValidRoll} from './rollNotationParser';
-import rollDice, {arrayReplace, reroll, rerollAll} from './rollDice';
+import {EXECUTE_REROLL, EXECUTE_ROLL, EXECUTE_REROLL_ALL, INPUT_UPDATE} from '../actions/rollActions';
+import {SORT_DICES} from '../actions/sortActions';
+import parse, {isValidRoll} from '../notationParser';
+import rollDice, {arrayReplace, reroll, rerollAll} from '../rollDice';
 
 const initialState = {
   input: '',
@@ -54,7 +54,7 @@ export default (state = initialState, action) => {
       const {direction} = action;
       const sortRoll = state.results[action.rollNumber];
 
-      const sortResults = arrayReplace(state.results, action.rollNumber, {...sortRoll, sortDirection:direction});
+      const sortResults = arrayReplace(state.results, action.rollNumber, {...sortRoll, sortDirection: direction});
 
       return {
         ...state,

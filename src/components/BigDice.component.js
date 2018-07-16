@@ -13,7 +13,7 @@ export const BigDice = ({sum,rerolled, onReroll}) => {
   return (
     <div style={{alignSelf: 'start'}}>
       <Button size={'large'} variant="contained" onClick={() => onReroll()}
-              style={styles}>
+        style={styles}>
         {sum}
       </Button>
     </div>
